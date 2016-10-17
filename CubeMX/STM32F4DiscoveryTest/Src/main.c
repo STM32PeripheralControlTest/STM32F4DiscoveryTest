@@ -33,7 +33,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "gpio.h"
-#include "stm32f4_discovery.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -83,11 +82,12 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  BSP_LED_Init(LED3);
+  while (1)
+  {
+  /* USER CODE END WHILE */
 
-  while(1){
-	BSP_LED_Toggle(LED3);
-	HAL_Delay(1000);
+  /* USER CODE BEGIN 3 */
+
   }
   /* USER CODE END 3 */
 
