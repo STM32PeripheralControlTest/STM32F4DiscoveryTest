@@ -62,7 +62,7 @@ typedef enum{
 }GPIO_PORT_NAME_t;
 
 void GPIOInitialize();
-void GPIOIRQAttach(void* funcPtr,GPIO_PORT_NAME_t GPIO_PortName);
+void GPIOIRQAttach(void* funcPtr,GPIO_PORT_NAME_t GPIO_PortName,uint32_t interruptMode);
 void GPIOIRQDetach(GPIO_PORT_NAME_t GPIO_PortName);
 void GPIOWrite(GPIO_PORT_NAME_t GPIO_PortName,GPIO_PinState state);
 GPIO_PinState GPIORead(GPIO_PORT_NAME_t GPIO_PortName);

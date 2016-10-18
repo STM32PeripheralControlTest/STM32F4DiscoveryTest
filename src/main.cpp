@@ -86,7 +86,7 @@ int main(void)
   BSP_LED_Init(LED3);
   BSP_LED_Init(LED4);
 
-  GPIOIRQAttach((void*)callBack_GPIO_B1Pin,PA0);
+  GPIOIRQAttach((void*)callBack_GPIO_B1Pin,PA0,GPIO_MODE_IT_RISING);
 
   while(1){
 	BSP_LED_Toggle(LED3);

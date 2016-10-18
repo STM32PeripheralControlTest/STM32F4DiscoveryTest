@@ -64,7 +64,7 @@ static void (*funcPtr14)() = NULL;
 static void (*funcPtr15)() = NULL;
 
 static GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName);
-static void GPIOIRQEnable(GPIO_PORT_NAME_t GPIO_PortName);
+static void GPIOIRQEnable(GPIO_PORT_NAME_t GPIO_PortName,uint32_t interruptMode);
 static void GPIOIRQDisable(GPIO_PORT_NAME_t GPIO_PortName);
 
 /* USER CODE END 1 */
@@ -374,9 +374,9 @@ void GPIOInitialize()
 {
 	MX_GPIO_Init();
 }
-void GPIOIRQAttach(void* funcPtr,GPIO_PORT_NAME_t GPIO_PortName)
+void GPIOIRQAttach(void* funcPtr,GPIO_PORT_NAME_t GPIO_PortName,uint32_t interruptMode)
 {
-	GPIOIRQEnable(GPIO_PortName);
+	GPIOIRQEnable(GPIO_PortName,interruptMode);
 
 	GPIO_PIN_DEF_t GPIO_PinStruct;
 	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
@@ -601,7 +601,7 @@ GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName)
 
 	return result;
 }
-void GPIOIRQEnable(GPIO_PORT_NAME_t GPIO_PortName)
+void GPIOIRQEnable(GPIO_PORT_NAME_t GPIO_PortName,uint32_t intteruptMode)
 {
 	GPIO_PIN_DEF_t GPIO_PinStruct;
 	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
@@ -610,7 +610,7 @@ void GPIOIRQEnable(GPIO_PORT_NAME_t GPIO_PortName)
 	GPIO_InitTypeDef GPIO_InitStruct;
 
 	GPIO_InitStruct.Pin = GPIO_PinStruct.pinNumber;
-    GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+    GPIO_InitStruct.Mode = intteruptMode;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIO_PinStruct.group, &GPIO_InitStruct);
 
