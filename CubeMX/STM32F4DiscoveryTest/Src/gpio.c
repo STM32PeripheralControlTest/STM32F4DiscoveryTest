@@ -45,7 +45,7 @@ typedef struct{
 /* Configure GPIO                                                             */
 /*----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
-//! GPIO割り込みで使用する関数ポインタ
+//! static function pointer for GPIO Interrupt
 static void (*funcPtr0)() = NULL;
 static void (*funcPtr1)() = NULL;
 static void (*funcPtr2)() = NULL;
@@ -64,6 +64,9 @@ static void (*funcPtr14)() = NULL;
 static void (*funcPtr15)() = NULL;
 
 static GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName);
+static void GPIOIRQEnable(GPIO_PORT_NAME_t GPIO_PortName);
+static void GPIOIRQDisable(GPIO_PORT_NAME_t GPIO_PortName);
+
 /* USER CODE END 1 */
 
 /** Configure pins as 
@@ -373,18 +376,142 @@ void GPIOInitialize()
 }
 void GPIOIRQAttach(void* funcPtr,GPIO_PORT_NAME_t GPIO_PortName)
 {
+	GPIOIRQEnable(GPIO_PortName);
 
+	GPIO_PIN_DEF_t GPIO_PinStruct;
+	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
+
+	switch (GPIO_PinStruct.pinNumber) {
+		case GPIO_PIN_0:
+			funcPtr0 = funcPtr;
+			break;
+		case GPIO_PIN_1:
+			funcPtr1 = funcPtr;
+			break;
+		case GPIO_PIN_2:
+			funcPtr2 = funcPtr;
+			break;
+		case GPIO_PIN_3:
+			funcPtr3 = funcPtr;
+			break;
+		case GPIO_PIN_4:
+			funcPtr4 = funcPtr;
+			break;
+		case GPIO_PIN_5:
+			funcPtr5 = funcPtr;
+			break;
+		case GPIO_PIN_6:
+			funcPtr6 = funcPtr;
+			break;
+		case GPIO_PIN_7:
+			funcPtr7 = funcPtr;
+			break;
+		case GPIO_PIN_8:
+			funcPtr8 = funcPtr;
+			break;
+		case GPIO_PIN_9:
+			funcPtr9 = funcPtr;
+			break;
+		case GPIO_PIN_10:
+			funcPtr10 = funcPtr;
+			break;
+		case GPIO_PIN_11:
+			funcPtr11 = funcPtr;
+			break;
+		case GPIO_PIN_12:
+			funcPtr12 = funcPtr;
+			break;
+		case GPIO_PIN_13:
+			funcPtr13 = funcPtr;
+			break;
+		case GPIO_PIN_14:
+			funcPtr14 = funcPtr;
+			break;
+		case GPIO_PIN_15:
+			funcPtr15 = funcPtr;
+			break;
+		default:
+			break;
+	}
 }
 void GPIOIRQDetach(GPIO_PORT_NAME_t GPIO_PortName)
 {
+	GPIOIRQDisable(GPIO_PortName);
 
+	GPIO_PIN_DEF_t GPIO_PinStruct;
+	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
+
+	switch (GPIO_PinStruct.pinNumber) {
+		case GPIO_PIN_0:
+			funcPtr0 = NULL;
+			break;
+		case GPIO_PIN_1:
+			funcPtr1 = NULL;
+			break;
+		case GPIO_PIN_2:
+			funcPtr2 = NULL;
+			break;
+		case GPIO_PIN_3:
+			funcPtr3 = NULL;
+			break;
+		case GPIO_PIN_4:
+			funcPtr4 = NULL;
+			break;
+		case GPIO_PIN_5:
+			funcPtr5 = NULL;
+			break;
+		case GPIO_PIN_6:
+			funcPtr6 = NULL;
+			break;
+		case GPIO_PIN_7:
+			funcPtr7 = NULL;
+			break;
+		case GPIO_PIN_8:
+			funcPtr8 = NULL;
+			break;
+		case GPIO_PIN_9:
+			funcPtr9 = NULL;
+			break;
+		case GPIO_PIN_10:
+			funcPtr10 = NULL;
+			break;
+		case GPIO_PIN_11:
+			funcPtr11 = NULL;
+			break;
+		case GPIO_PIN_12:
+			funcPtr12 = NULL;
+			break;
+		case GPIO_PIN_13:
+			funcPtr13 = NULL;
+			break;
+		case GPIO_PIN_14:
+			funcPtr14 = NULL;
+			break;
+		case GPIO_PIN_15:
+			funcPtr15 = NULL;
+			break;
+		default:
+			break;
+	}
 }
 void GPIOWrite(GPIO_PORT_NAME_t GPIO_PortName,GPIO_PinState state)
 {
+	GPIO_PIN_DEF_t GPIO_PinStruct;
+	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
 
+	HAL_GPIO_WritePin(GPIO_PinStruct.group,GPIO_PinStruct.pinNumber,state);
 }
 GPIO_PinState GPIORead(GPIO_PORT_NAME_t GPIO_PortName)
 {
+	GPIO_PIN_DEF_t GPIO_PinStruct;
+
+	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
+
+	GPIO_PinState result;
+
+	result = HAL_GPIO_ReadPin(GPIO_PinStruct.group,GPIO_PinStruct.pinNumber);
+
+	return result;
 
 }
 GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName)
@@ -394,10 +521,10 @@ GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName)
 	uint16_t groupNum;
 	uint16_t pinNum;
 
-	//! 16で割った商がGPIO_TypeDefを表す
+	//! Quotient of GPIO_PortName/16 is GPIO_TypeDef
 	groupNum = GPIO_PortName/16;
 
-	//! 16で割った余りがGPIO_Pin
+	//! Remainder of GPIO_PortName/16 is GPIO_Pin_number
 	pinNum = GPIO_PortName%16;
 
 	switch (groupNum) {
@@ -422,6 +549,112 @@ GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName)
 	result.pinNumber = pinNum;
 
 	return result;
+}
+void GPIOIRQEnable(GPIO_PORT_NAME_t GPIO_PortName)
+{
+	GPIO_PIN_DEF_t GPIO_PinStruct;
+	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
+
+
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+	GPIO_InitStruct.Pin = GPIO_PinStruct.pinNumber;
+    GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIO_PinStruct.group, &GPIO_InitStruct);
+
+
+    switch (GPIO_PinStruct.pinNumber) {
+		case GPIO_PIN_0:
+			HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+			HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+			break;
+		case GPIO_PIN_1:
+			HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
+			HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+			break;
+		case GPIO_PIN_2:
+			HAL_NVIC_SetPriority(EXTI2_IRQn, 0, 0);
+			HAL_NVIC_EnableIRQ(EXTI2_IRQn);
+			break;
+		case GPIO_PIN_3:
+			HAL_NVIC_SetPriority(EXTI3_IRQn, 0, 0);
+			HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+			break;
+		case GPIO_PIN_4:
+			HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+			HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+			break;
+		case GPIO_PIN_5:
+		case GPIO_PIN_6:
+		case GPIO_PIN_7:
+		case GPIO_PIN_8:
+		case GPIO_PIN_9:
+			HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+			HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+			break;
+		case GPIO_PIN_10:
+		case GPIO_PIN_11:
+		case GPIO_PIN_12:
+		case GPIO_PIN_13:
+		case GPIO_PIN_14:
+		case GPIO_PIN_15:
+			HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+			HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+			break;
+		default:
+			break;
+	}
+
+}
+void GPIOIRQDisable(GPIO_PORT_NAME_t GPIO_PortName)
+{
+	GPIO_PIN_DEF_t GPIO_PinStruct;
+	GPIO_PinStruct = getGPIOPinDef(GPIO_PortName);
+
+
+	GPIO_InitTypeDef GPIO_InitStruct;
+
+	GPIO_InitStruct.Pin = GPIO_PinStruct.pinNumber;
+	GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	HAL_GPIO_Init(GPIO_PinStruct.group, &GPIO_InitStruct);
+
+
+	switch (GPIO_PinStruct.pinNumber) {
+		case GPIO_PIN_0:
+			HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+			break;
+		case GPIO_PIN_1:
+			HAL_NVIC_DisableIRQ(EXTI1_IRQn);
+			break;
+		case GPIO_PIN_2:
+			HAL_NVIC_DisableIRQ(EXTI2_IRQn);
+			break;
+		case GPIO_PIN_3:
+			HAL_NVIC_DisableIRQ(EXTI3_IRQn);
+			break;
+		case GPIO_PIN_4:
+			HAL_NVIC_DisableIRQ(EXTI4_IRQn);
+			break;
+		case GPIO_PIN_5:
+		case GPIO_PIN_6:
+		case GPIO_PIN_7:
+		case GPIO_PIN_8:
+		case GPIO_PIN_9:
+			HAL_NVIC_DisableIRQ(EXTI9_5_IRQn);
+			break;
+		case GPIO_PIN_10:
+		case GPIO_PIN_11:
+		case GPIO_PIN_12:
+		case GPIO_PIN_13:
+		case GPIO_PIN_14:
+		case GPIO_PIN_15:
+			HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+			break;
+		default:
+			break;
+	}
 }
 /* USER CODE END 2 */
 
