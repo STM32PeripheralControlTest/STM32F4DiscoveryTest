@@ -47,6 +47,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Inc/stm32f4xx_it.h</locationURI>
 		</link>
 		<link>
+			<name>Inc/tim.h</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/CubeMX/STM32F4DiscoveryTest/Inc/tim.h</locationURI>
+		</link>
+		<link>
 			<name>src/gpio.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Src/gpio.c</locationURI>
@@ -55,6 +60,11 @@
 			<name>src/stm32f4xx_it.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Src/stm32f4xx_it.c</locationURI>
+		</link>
+		<link>
+			<name>src/tim.c</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/CubeMX/STM32F4DiscoveryTest/Src/tim.c</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
