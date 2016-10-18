@@ -27,22 +27,22 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>inc/gpio.h</name>
+			<name>Inc/gpio.h</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Inc/gpio.h</locationURI>
 		</link>
 		<link>
-			<name>inc/mxconstants.h</name>
+			<name>Inc/mxconstants.h</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Inc/mxconstants.h</locationURI>
 		</link>
 		<link>
-			<name>inc/stm32f4xx_hal_conf.h</name>
+			<name>Inc/stm32f4xx_hal_conf.h</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Inc/stm32f4xx_hal_conf.h</locationURI>
 		</link>
 		<link>
-			<name>inc/stm32f4xx_it.h</name>
+			<name>Inc/stm32f4xx_it.h</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Inc/stm32f4xx_it.h</locationURI>
 		</link>

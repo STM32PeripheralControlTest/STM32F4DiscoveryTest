@@ -35,14 +35,35 @@
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
 /* USER CODE BEGIN 0 */
-
+typedef struct{
+	GPIO_TypeDef* group;
+	uint16_t pinNumber;
+}GPIO_PIN_DEF_t;
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
 /* Configure GPIO                                                             */
 /*----------------------------------------------------------------------------*/
 /* USER CODE BEGIN 1 */
+//! GPIO割り込みで使用する関数ポインタ
+static void (*funcPtr0)() = NULL;
+static void (*funcPtr1)() = NULL;
+static void (*funcPtr2)() = NULL;
+static void (*funcPtr3)() = NULL;
+static void (*funcPtr4)() = NULL;
+static void (*funcPtr5)() = NULL;
+static void (*funcPtr6)() = NULL;
+static void (*funcPtr7)() = NULL;
+static void (*funcPtr8)() = NULL;
+static void (*funcPtr9)() = NULL;
+static void (*funcPtr10)() = NULL;
+static void (*funcPtr11)() = NULL;
+static void (*funcPtr12)() = NULL;
+static void (*funcPtr13)() = NULL;
+static void (*funcPtr14)() = NULL;
+static void (*funcPtr15)() = NULL;
 
+static GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName);
 /* USER CODE END 1 */
 
 /** Configure pins as 
@@ -258,7 +279,150 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	switch (GPIO_Pin) {
+		case GPIO_PIN_0:
+			if(funcPtr0 != NULL){
+				funcPtr0();
+			}
+			break;
+		case GPIO_PIN_1:
+			if(funcPtr1 != NULL){
+				funcPtr1();
+			}
+			break;
+		case GPIO_PIN_2:
+			if(funcPtr2 != NULL){
+				funcPtr2();
+			}
+			break;
+		case GPIO_PIN_3:
+			if(funcPtr3 != NULL){
+				funcPtr3();
+			}
+			break;
+		case GPIO_PIN_4:
+			if(funcPtr4 != NULL){
+				funcPtr4();
+			}
+			break;
+		case GPIO_PIN_5:
+			if(funcPtr5 != NULL){
+				funcPtr5();
+			}
+			break;
+		case GPIO_PIN_6:
+			if(funcPtr6 != NULL){
+				funcPtr6();
+			}
+			break;
+		case GPIO_PIN_7:
+			if(funcPtr7 != NULL){
+				funcPtr7();
+			}
+			break;
+		case GPIO_PIN_8:
+			if(funcPtr8 != NULL){
+				funcPtr8();
+			}
+			break;
+		case GPIO_PIN_9:
+			if(funcPtr9 != NULL){
+				funcPtr9();
+			}
+			break;
+		case GPIO_PIN_10:
+			if(funcPtr10 != NULL){
+				funcPtr10();
+			}
+			break;
+		case GPIO_PIN_11:
+			if(funcPtr11 != NULL){
+				funcPtr11();
+			}
+			break;
+		case GPIO_PIN_12:
+			if(funcPtr12 != NULL){
+				funcPtr12();
+			}
+			break;
+		case GPIO_PIN_13:
+			if(funcPtr13 != NULL){
+				funcPtr13();
+			}
+			break;
+		case GPIO_PIN_14:
+			if(funcPtr14 != NULL){
+				funcPtr14();
+			}
+			break;
+		case GPIO_PIN_15:
+			if(funcPtr15 != NULL){
+				funcPtr15();
+			}
+			break;
 
+		default:
+			break;
+	}
+}
+void GPIOInitialize()
+{
+	MX_GPIO_Init();
+}
+void GPIOIRQAttach(void* funcPtr,GPIO_PORT_NAME_t GPIO_PortName)
+{
+
+}
+void GPIOIRQDetach(GPIO_PORT_NAME_t GPIO_PortName)
+{
+
+}
+void GPIOWrite(GPIO_PORT_NAME_t GPIO_PortName,GPIO_PinState state)
+{
+
+}
+GPIO_PinState GPIORead(GPIO_PORT_NAME_t GPIO_PortName)
+{
+
+}
+GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName)
+{
+	GPIO_PIN_DEF_t result;
+
+	uint16_t groupNum;
+	uint16_t pinNum;
+
+	//! 16で割った商がGPIO_TypeDefを表す
+	groupNum = GPIO_PortName/16;
+
+	//! 16で割った余りがGPIO_Pin
+	pinNum = GPIO_PortName%16;
+
+	switch (groupNum) {
+		case 0:
+			result.group = GPIOA;
+			break;
+		case 1:
+			result.group = GPIOB;
+			break;
+		case 2:
+			result.group = GPIOC;
+			break;
+		case 3:
+			result.group = GPIOD;
+			break;
+		case 4:
+			result.group = GPIOE;
+			break;
+		default:
+			break;
+	}
+	result.pinNumber = pinNum;
+
+	return result;
+}
 /* USER CODE END 2 */
 
 /**
