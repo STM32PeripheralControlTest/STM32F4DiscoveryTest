@@ -33,6 +33,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "gpio.h"
+#include "tim.h"
+#include "testFuncs.hpp"
 #include "stm32f4_discovery.h"
 
 /* USER CODE BEGIN Includes */
@@ -52,7 +54,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-static void callBack_GPIO_B1Pin();
+
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -75,22 +77,17 @@ int main(void)
   SystemClock_Config();
 
   /* Initialize all configured peripherals */
-//  MX_GPIO_Init();
-  GPIOInitialize();
-  /* USER CODE BEGIN 2 */
 
+
+  /* USER CODE BEGIN 2 */
+  testGPIO_TimerInterruptBlink();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  BSP_LED_Init(LED3);
-  BSP_LED_Init(LED4);
-
-  GPIOIRQAttach((void*)callBack_GPIO_B1Pin,PA0,GPIO_MODE_IT_RISING);
 
   while(1){
-	BSP_LED_Toggle(LED3);
-	HAL_Delay(1000);
+
   }
   /* USER CODE END 3 */
 
@@ -142,10 +139,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void callBack_GPIO_B1Pin()
-{
-	BSP_LED_Toggle(LED4);
-}
+
 /* USER CODE END 4 */
 
 /**
