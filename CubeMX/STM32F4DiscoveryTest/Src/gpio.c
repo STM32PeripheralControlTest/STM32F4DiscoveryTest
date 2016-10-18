@@ -546,7 +546,58 @@ GPIO_PIN_DEF_t getGPIOPinDef(GPIO_PORT_NAME_t GPIO_PortName)
 		default:
 			break;
 	}
-	result.pinNumber = pinNum;
+	switch (pinNum) {
+		case 0:
+			result.pinNumber = GPIO_PIN_0;
+			break;
+		case 1:
+			result.pinNumber = GPIO_PIN_1;
+			break;
+		case 2:
+			result.pinNumber = GPIO_PIN_2;
+			break;
+		case 3:
+			result.pinNumber = GPIO_PIN_3;
+			break;
+		case 4:
+			result.pinNumber = GPIO_PIN_4;
+			break;
+		case 5:
+			result.pinNumber = GPIO_PIN_5;
+			break;
+		case 6:
+			result.pinNumber = GPIO_PIN_6;
+			break;
+		case 7:
+			result.pinNumber = GPIO_PIN_7;
+			break;
+		case 8:
+			result.pinNumber = GPIO_PIN_8;
+			break;
+		case 9:
+			result.pinNumber = GPIO_PIN_9;
+			break;
+		case 10:
+			result.pinNumber = GPIO_PIN_10;
+			break;
+		case 11:
+			result.pinNumber = GPIO_PIN_11;
+			break;
+		case 12:
+			result.pinNumber = GPIO_PIN_12;
+			break;
+		case 13:
+			result.pinNumber = GPIO_PIN_13;
+			break;
+		case 14:
+			result.pinNumber = GPIO_PIN_14;
+			break;
+		case 15:
+			result.pinNumber = GPIO_PIN_15;
+			break;
+		default:
+			break;
+	}
 
 	return result;
 }

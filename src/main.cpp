@@ -52,7 +52,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+static void callBack_GPIO_B1Pin();
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -84,6 +84,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   BSP_LED_Init(LED3);
+  BSP_LED_Init(LED4);
+
+  GPIOIRQAttach((void*)callBack_GPIO_B1Pin,PA0);
 
   while(1){
 	BSP_LED_Toggle(LED3);
@@ -139,7 +142,10 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void callBack_GPIO_B1Pin()
+{
+	BSP_LED_Toggle(LED4);
+}
 /* USER CODE END 4 */
 
 /**
