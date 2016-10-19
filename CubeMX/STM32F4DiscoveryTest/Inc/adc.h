@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * @file    stm32f4xx_it.h
-  * @brief   This file contains the headers of the interrupt handlers.
+  * File Name          : ADC.h
+  * Description        : This file provides code for the configuration
+  *                      of the ADC instances.
   ******************************************************************************
   *
   * COPYRIGHT(c) 2016 STMicroelectronics
@@ -30,30 +31,50 @@
   *
   ******************************************************************************
   */
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32F4xx_IT_H
-#define __STM32F4xx_IT_H
-
+#ifndef __adc_H
+#define __adc_H
 #ifdef __cplusplus
  extern "C" {
-#endif 
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
+#include "stm32f4xx_hal.h"
 
-void SysTick_Handler(void);
-void EXTI0_IRQHandler(void);
-void ADC_IRQHandler(void);
-void TIM2_IRQHandler(void);
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+extern ADC_HandleTypeDef hadc1;
+
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END Private defines */
+
+extern void Error_Handler(void);
+
+void MX_ADC1_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+void ADCInitialize();
+void ADCStart();
+void ADCStop();
+void ADCIRQAttach(void* funcPtr);
+void ADCIRQDetach(void* funcPtr);
+uint32_t ADCGetValue();
+/* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
+#endif /*__ adc_H */
 
-#endif /* __STM32F4xx_IT_H */
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

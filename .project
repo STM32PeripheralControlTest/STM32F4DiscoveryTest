@@ -27,6 +27,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>Inc/adc.h</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Inc/adc.h</locationURI>
+		</link>
+		<link>
 			<name>Inc/gpio.h</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Inc/gpio.h</locationURI>
@@ -50,6 +55,11 @@
 			<name>Inc/tim.h</name>
 			<type>1</type>
 			<locationURI>PROJECT_LOC/CubeMX/STM32F4DiscoveryTest/Inc/tim.h</locationURI>
+		</link>
+		<link>
+			<name>src/adc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/STM32F4DiscoveryTest/CubeMX/STM32F4DiscoveryTest/Src/adc.c</locationURI>
 		</link>
 		<link>
 			<name>src/gpio.c</name>

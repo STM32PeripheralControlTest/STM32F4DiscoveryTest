@@ -32,6 +32,7 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "adc.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -78,6 +79,7 @@ int main(void)
   MX_GPIO_Init();
   SystemClock_Config();
   MX_TIM2_Init();
+  MX_ADC1_Init();
 
   /* USER CODE BEGIN 2 */
 

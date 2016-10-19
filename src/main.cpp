@@ -80,7 +80,8 @@ int main(void)
 
 
   /* USER CODE BEGIN 2 */
-  testGPIO_TimerInterruptBlink();
+
+  testADC_TimerInterrupt();
   /* USER CODE END 2 */
 
   /* Infinite loop */

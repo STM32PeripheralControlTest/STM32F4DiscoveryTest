@@ -11,6 +11,7 @@
 void testGPIO_SystikBlink();
 void testGPIO_ButtonInterruptBlink();
 void testGPIO_TimerInterruptBlink();
+void testADC_TimerInterrupt();
 
 
 
